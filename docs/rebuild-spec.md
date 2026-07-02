@@ -302,8 +302,9 @@ Digital click:
 - Normal frequency: `980Hz`.
 - Primary beat volume: `0.95`.
 - Subdivision volume: `0.34`.
-- Envelope starts at `0.0001`, ramps to volume by `note.time + 0.002`, then ramps to `0.0001` by `note.time + 0.045`.
-- Stop at `note.time + 0.05`.
+- Envelope starts at `0.0001`, ramps to volume by `note.time + 0.002`, then ramps to `0.0001` by `note.time + release.decaySec`.
+- Stop at `note.time + release.stopSec`.
+- Base release: decay `0.02s`, stop `0.022s`.
 
 Woodblock:
 
@@ -314,8 +315,9 @@ Woodblock:
 - Filter Q: `10`.
 - Primary beat volume: `0.9`.
 - Subdivision volume: `0.28`.
-- Envelope starts at `0.0001`, ramps to volume by `note.time + 0.002`, then ramps to `0.0001` by `note.time + 0.075`.
-- Stop at `note.time + 0.085`.
+- Envelope starts at `0.0001`, ramps to volume by `note.time + 0.002`, then ramps to `0.0001` by `note.time + release.decaySec`.
+- Stop at `note.time + release.stopSec`.
+- Base release: decay `0.033s`, stop `0.037s`.
 
 Electronic beep:
 
@@ -324,8 +326,11 @@ Electronic beep:
 - Normal frequency: `880Hz`.
 - Primary beat volume: `0.75`.
 - Subdivision volume: `0.24`.
-- Envelope starts at `0.0001`, linearly ramps to volume by `note.time + 0.004`, then ramps to `0.0001` by `note.time + 0.065`.
-- Stop at `note.time + 0.075`.
+- Envelope starts at `0.0001`, linearly ramps to volume by `note.time + 0.004`, then ramps to `0.0001` by `note.time + release.decaySec`.
+- Stop at `note.time + release.stopSec`.
+- Base release: decay `0.029s`, stop `0.033s`.
+
+All sounds clamp release duration with `min(baseStop, subdivisionDuration * 0.6)`, scaling decay proportionally so fast tempos do not overlap adjacent notes.
 
 Accent is enabled only when `accentFirstBeat` is true and the note is a downbeat.
 

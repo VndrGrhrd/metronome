@@ -4,6 +4,10 @@ A precise, responsive, low-latency web metronome for musicians and students.
 
 The app is built with Svelte, TypeScript, Tailwind CSS, Vite, Web Audio API, and PWA support. Its core engineering principle is that musical timing is driven by the audio clock, not by UI rendering.
 
+## Live Demo
+
+[https://vndrgrhrd.github.io/metronome/](https://vndrgrhrd.github.io/metronome/)
+
 ## Features
 
 - BPM control from `30` to `400`.

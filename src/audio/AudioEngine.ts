@@ -1,4 +1,4 @@
-import { normalizeBpm } from '../music/tempo';
+import { getSubdivisionDuration, normalizeBpm } from '../music/tempo';
 import { LookaheadScheduler } from './LookaheadScheduler';
 import { SoundFactory } from './SoundFactory';
 import type { BeatListener, Meter, MetronomeSettings, SoundType, Subdivision } from './types';
@@ -108,7 +108,13 @@ export class AudioEngine {
     this.soundFactory = new SoundFactory(this.audioContext, this.masterGain);
     this.scheduler = new LookaheadScheduler(
       () => this.audioContext?.currentTime ?? 0,
-      (note) => this.soundFactory?.play(note, this.settings.soundType, this.settings.accentFirstBeat),
+      (note) =>
+        this.soundFactory?.play(
+          note,
+          this.settings.soundType,
+          this.settings.accentFirstBeat,
+          getSubdivisionDuration(this.settings.bpm, this.settings.subdivision)
+        ),
       this.settings
     );
     this.scheduler.addBeatListener((note) => {
